@@ -34,8 +34,10 @@ const emit = defineEmits(['like'])
         <div class="flex items-center">
             <!-- @click="$emit('like', { post, user })" -->
             <button  class="-mt-[14px]">
-                <HeartOutline v-if="!isHeartActiveComputed" class="pl-3 cursor-pointer" :size="30" />
-                <Heart v-else class="pl-3 cursor-pointer" fillColor="#FF0000" :size="30" />
+                <!-- v-if="!isHeartActiveComputed" -->
+                <HeartOutline  class="pl-3 cursor-pointer" :size="30" />
+                <!-- v-else class="pl-3 cursor-pointer" -->
+                <Heart  fillColor="#FF0000" :size="30" />
             </button>
             <CommentOutline class="pl-3 pt-[10px]" :size="30" />
             <SendOutline class="pl-3 pt-[10px]" :size="30" />

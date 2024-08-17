@@ -160,7 +160,7 @@ const updatedPost = (object) => {
                 </div>
                 <!-- @click="$event => currentPost = post,  openOverlay = true" -->
                 <button
-
+                    @click="$event => openOverlay = true"
                     class="text-gray-500 font-extrabold py-1"
                 >
                     <!-- {{ post.comments.length }} -->
@@ -171,16 +171,14 @@ const updatedPost = (object) => {
             <div class="pb-20"></div>
         </div>
     </MainLayout>
+    <!-- @addComment="addComment($event)"
+        @updateLike="updateLike($event)"
+        @deleteSelected="deleteFunc($event);" -->
 
     <ShowPostOverlay
         v-if="openOverlay"
         :post="currentPost"
-        @addComment="addComment($event)"
-        @updateLike="updateLike($event)"
-        @deleteSelected="
-            deleteFunc($event);
-        "
-        @closeOverlay="openOverlay = false"
+        @closeOverlay="$event => openOverlay = false"
     />
 </template>
 

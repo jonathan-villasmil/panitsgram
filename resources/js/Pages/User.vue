@@ -3,7 +3,7 @@ import { reactive, toRefs } from 'vue'
 import { Head, Link, router } from '@inertiajs/vue3';
 
 import MainLayout from '@/Layouts/MainLayout.vue';
-// import ShowPostOverlay from '@/Components/ShowPostOverlay.vue'
+import ShowPostOverlay from '@/Components/ShowPostOverlay.vue'
 import ContentOverlay from '@/Components/ContentOverlay.vue'
 
 import Cog from 'vue-material-design-icons/Cog.vue';
@@ -86,7 +86,7 @@ const getUploadedImage = (e) => {
 </script>
 
 <template>
-    <Head title="Panitsgram" />
+    <Head title="Instagram" />
 
     <MainLayout>
         <div class="pt-2 md:pt-6"></div>
@@ -94,26 +94,22 @@ const getUploadedImage = (e) => {
             <div class="flex items-center md:justify-between">
 
                 <label for="fileUser">
-                    <!-- :src="user.file" -->
                     <img
                         class="rounded-full object-fit md:w-[200px] w-[100px] cursor-pointer"
-                        src="https://picsum.photos/id/54/200/200"
-
+                        :src="user.file"
                     >
                 </label>
-                <!-- v-if="user.id === $page.props.auth.user.id" -->
                 <input
-
+                    v-if="user.id === $page.props.auth.user.id"
                     id="fileUser"
                     class="hidden"
                     type="file"
-                    @input="$event => getUploadedImage($event)"
+                    @input="getUploadedImage($event)"
                 >
 
                 <div class="ml-6 w-full">
                     <div class="flex items-center md:mb-8 mb-5">
-                        <!-- {{ user.name }} -->
-                        <div class="md:mr-6 mr-3 rounded-lg text-[22px]">User NAME</div>
+                        <div class="md:mr-6 mr-3 rounded-lg text-[22px]">{{ user.name }}</div>
                         <button class="md:block hidden md:mr-6 p-1 px-4 rounded-lg text-[16px] font-extrabold bg-gray-100 hover:bg-gray-200">
                             Edit Profile
                         </button>
@@ -125,8 +121,7 @@ const getUploadedImage = (e) => {
                     <div class="md:block hidden">
                         <div class="flex items-center text-[18px]">
                             <div class="mr-6">
-                                <!-- {{ postsByUser.data.length }} -->
-                                <span class="font-extrabold">3</span>  posts
+                                <span class="font-extrabold">{{ postsByUser.data.length }}</span>  posts
                             </div>
                             <div class="mr-6">
                                 <span class="font-extrabold">123</span>  followers
@@ -144,8 +139,7 @@ const getUploadedImage = (e) => {
         <div class="md:hidden">
             <div class="w-full flex items-center justify-around border-t border-t-gray-300 mt-8">
                 <div class="text-center p-3">
-                    <!-- {{ postsByUser.data.length }} -->
-                    <div class="font-extrabold">1000</div>
+                    <div class="font-extrabold">{{ postsByUser.data.length }}</div>
                     <div class="text-gray-400 font-semibold -mt-1.5">posts</div>
                 </div>
                 <div class="text-center p-3">
@@ -197,12 +191,10 @@ const getUploadedImage = (e) => {
             </div>
 
             <div class="grid md:gap-4 gap-1 grid-cols-3 relative">
-                <!-- v-for="postByUser in postsByUser.data" -->
-                <div v-for="postByUser in 10" :key="postByUser">
-                    <!-- :postByUser="postByUser"
-                        @selectedPost="data.post = $event" -->
+                <div v-for="postByUser in postsByUser.data" :key="postByUser">
                     <ContentOverlay
-
+                        :postByUser="postByUser"
+                        @selectedPost="data.post = $event"
                     />
                 </div>
             </div>
@@ -211,7 +203,7 @@ const getUploadedImage = (e) => {
         </div>
     </MainLayout>
 
-    <!-- <ShowPostOverlay
+    <ShowPostOverlay
         v-if="data.post"
         :post="data.post"
         @addComment="addComment($event)"
@@ -220,5 +212,5 @@ const getUploadedImage = (e) => {
             deleteFunc($event);
         "
         @closeOverlay="data.post = null"
-    /> -->
+    />
 </template>

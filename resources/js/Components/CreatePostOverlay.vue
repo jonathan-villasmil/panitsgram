@@ -6,7 +6,7 @@ import ArrowLeft from "vue-material-design-icons/ArrowLeft.vue";
 import MapMarkerOutline from "vue-material-design-icons/MapMarkerOutline.vue";
 import ChevronDown from "vue-material-design-icons/ChevronDown.vue";
 
-// const user = usePage().props.auth.user;
+const user = usePage().props.auth.user;
 
 const emit = defineEmits(["close"]);
 
@@ -145,15 +145,13 @@ const closeOverlay = () => {
                 <div id="TextAreaSection" class="max-w-[720px] w-full relative">
                     <div class="flex items-center justify-between p-3">
                         <div class="flex items-center">
-                            <!-- :src="user.file" -->
                             <img
                                 class="rounded-full w-[38px] h-[38px]"
-                                src="https://picsum.photos/id/50/200/300"
+                                :src="user.file"
 
                             />
                             <div class="ml-4 font-extrabold text-[15px]">
-                                USER NAME
-                                <!-- {{ user.name }} -->
+                                {{ user.name }}
                             </div>
                         </div>
                     </div>

@@ -9,7 +9,7 @@ import ShowPostOverlay from '@/Components/ShowPostOverlay.vue'
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Navigation } from 'vue3-carousel'
 
-import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue'
+import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 
 let wWidth = ref(window.innerWidth)
 let currentSlide = ref(0)
@@ -89,7 +89,7 @@ const updatedPost = (object) => {
 </script>
 
 <template>
-    <Head title="panitsgram" />
+    <Head title="Instagram" />
 
     <MainLayout>
         <div class="mx-auto lg:pl-0 md:pl-[80px] pl-0">
@@ -102,17 +102,13 @@ const updatedPost = (object) => {
                 :transition="500"
                 snapAlign="start"
             >
-                <!-- v-for="slide in allUsers" -->
-                <Slide v-for="slide in 10" :key="slide" class="h-60">
-                    <!-- :href="route('users.show', { id: slide.id })" -->
-                    <Link href="/" class="relative mx-auto text-center mt-4 px-2 cursor-pointer">
+                <Slide v-for="slide in allUsers" :key="slide">
+                    <Link :href="route('users.show', { id: slide.id })" class="relative mx-auto text-center mt-4 px-2 cursor-pointer">
                         <div class="absolute z-[-1] -top-[5px] left-[4px] rounded-full rotate-45 w-[64px] h-[64px] contrast-[1.3]  bg-gradient-to-t from-yellow-300 to-purple-500 via-red-500">
                             <div class="rounded-full ml-[3px] mt-[3px] w-[58px] h-[58px] bg-white" />
                         </div>
-                        <!-- :src="slide.file" -->
-                        <img class="rounded-full w-[56px] h-[56px] -mt-[1px]" src="https://picsum.photos/id/54/200/300">
-                        <!-- {{ slide.name }} -->
-                        <div class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden">Slide name</div>
+                        <img class="rounded-full w-[56px] h-[56px] -mt-[1px]" :src="slide.file">
+                        <div class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden">{{ slide.name }}</div>
                     </Link>
                 </Slide>
 
@@ -120,21 +116,17 @@ const updatedPost = (object) => {
                     <Navigation />
                 </template>
             </Carousel>
-            <!-- v-for="post in posts.data" -->
-            <div id="Posts" class="px-4 max-w-[600px] mx-auto mt-10" v-for="post in 10" :key="post">
+
+            <div id="Posts" class="px-4 max-w-[600px] mx-auto mt-10" v-for="post in posts.data" :key="post">
                 <div class="flex items-center justify-between py-2">
                     <div class="flex items-center">
-                        <!--  :href="route('users.show', { id: post.user.id })" -->
-                        <Link href="/" class="flex items-center">
-                            <!--  :src="post.user.file" -->
-                            <img class="rounded-full w-[38px] h-[38px]" src="https://picsum.photos/id/54/200/300">
-                            <!--  {{ post.user.name }} -->
-                            <div class="ml-4 font-extrabold text-[15px]">POST USER NAME</div>
+                        <Link :href="route('users.show', { id: post.user.id })" class="flex items-center">
+                            <img class="rounded-full w-[38px] h-[38px]" :src="post.user.file">
+                            <div class="ml-4 font-extrabold text-[15px]">{{ post.user.name }}</div>
                         </Link>
                         <div class="flex items-center text-[15px] text-gray-500">
                             <span class="-mt-5 ml-2 mr-[5px] text-[35px]">.</span>
-                            <!-- {{ post.created_at }}  -->
-                            <div>POST CREATED AT 16/08/2024</div>
+                            <div>{{ post.created_at }}</div>
                         </div>
                     </div>
 
@@ -142,43 +134,40 @@ const updatedPost = (object) => {
                 </div>
 
                 <div class="bg-black rounded-lg w-full min-h-[400px] flex items-center">
-                    <!-- :src="post.file" -->
-                    <img class="mx-auto w-full" src="https://picsum.photos/id/54/200/300" />
+                    <img class="mx-auto w-full" :src="post.file" />
                 </div>
 
                 <LikesSection
                     :post="post"
-                    @like="$event => updateLike($event)"
+                    @like="updateLike($event)"
                 />
-                <!-- {{ post.likes.length }} -->
-                <div class="text-black font-extrabold py-1">1000 likes</div>
+
+                <div class="text-black font-extrabold py-1">{{ post.likes.length }} likes</div>
                 <div>
-                    <!-- {{ post.user.name }} -->
-                    <span class="text-black font-extrabold">POST USER NAME</span>
-                    <!-- {{ post.text }} -->
-                      POST TEXT
+                    <span class="text-black font-extrabold">{{ post.user.name }}</span>
+                    {{ post.text }}
                 </div>
-                <!-- @click="$event => currentPost = post,  openOverlay = true" -->
                 <button
-                    @click="$event => openOverlay = true"
+                    @click="currentPost = post; openOverlay = true"
                     class="text-gray-500 font-extrabold py-1"
                 >
-                    <!-- {{ post.comments.length }} -->
-                    View all 1000 comments
+                    View all {{ post.comments.length }} comments
                 </button>
             </div>
 
             <div class="pb-20"></div>
         </div>
     </MainLayout>
-    <!-- @addComment="addComment($event)"
-        @updateLike="updateLike($event)"
-        @deleteSelected="deleteFunc($event);" -->
 
     <ShowPostOverlay
         v-if="openOverlay"
         :post="currentPost"
-        @closeOverlay="$event => openOverlay = false"
+        @addComment="addComment($event)"
+        @updateLike="updateLike($event)"
+        @deleteSelected="
+            deleteFunc($event);
+        "
+        @closeOverlay="openOverlay = false"
     />
 </template>
 

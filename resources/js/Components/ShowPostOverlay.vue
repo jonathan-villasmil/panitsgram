@@ -29,38 +29,32 @@ const textareaInput = (e) => {
 <template>
     <div id="OverlaySection" class="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-60 p-3">
 
-        <button class="absolute right-3" @click="$event => $emit('closeOverlay')">
+        <button class="absolute right-3" @click="$emit('closeOverlay')">
             <Close :size="27" fillColor="#FFFFFF"/>
         </button>
 
         <div class="max-w-6xl h-[calc(100%-100px)] mx-auto mt-10 bg-white rounded-xl">
             <div class="w-full md:flex h-full overflow-auto rounded-xl">
                 <div class="flex items-center bg-black w-full">
-                    <!-- :src="post.file" -->
                     <img
                         class="rounded-xl min-w-[400px] p-4 mx-auto"
-                        src="https://picsum.photos/id/50/800/820"
-
+                        :src="post.file"
                     >
                 </div>
 
                 <div class="md:max-w-[500px] w-full relative">
                     <div class="flex items-center justify-between p-3 border-b">
                         <div class="flex items-center">
-                            <!-- :src="post.user.file" -->
-                            <img class="rounded-full w-[38px] h-[38px]" src="https://picsum.photos/id/50/200/300" >
-                            <!-- {{ post.user.name }} -->
-                            <div class="ml-4 font-extrabold text-[15px]">POST USER NAME</div>
+                            <img class="rounded-full w-[38px] h-[38px]" :src="post.user.file">
+                            <div class="ml-4 font-extrabold text-[15px]">{{ post.user.name }}</div>
                             <div class="flex items-center text-[15px] text-gray-500">
                                 <span class="-mt-5 ml-2 mr-[5px] text-[35px]">.</span>
-                                <!-- {{ post.created_at }} -->
-                                <div>CREATE AT</div>
+                                <div>{{ post.created_at }}</div>
                             </div>
                         </div>
-                        <!--v-if="user.id === post.user.id"
-                            @click="deleteType = 'Post'; id = post.id"  -->
                         <button
-
+                            v-if="user.id === post.user.id"
+                            @click="deleteType = 'Post'; id = post.id"
                         >
                             <DotsHorizontal class="cursor-pointer" :size="27" />
                         </button>
@@ -69,62 +63,60 @@ const textareaInput = (e) => {
                     <div class="overflow-y-auto h-[calc(100%-170px)]">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center relative">
-                                <!-- :src="post.user.file" -->
                                 <img
                                     class=" absolute -top-1 rounded-full w-[38px] h-[38px]"
-                                    src="https://picsum.photos/id/50/200/300"
+                                    :src="post.user.file"
                                 >
                                 <div class="ml-14">
-                                    <!-- {{ post.user.name }} -->
                                     <span class="font-extrabold text-[15px] mr-2">
-                                        POST USER NAME
+                                        {{ post.user.name }}
                                     </span>
-                                    <!-- {{ post.text }} -->
                                     <span class="text-[15px] text-gray-900">
-                                        POST TEXT COMMENT
+                                        {{ post.text }}
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <!-- v-if="post.comments" v-for="comment in post.comments"
-                            :key="comment"-->
-                        <div class="p-3">
+
+                        <div
+                            v-if="post.comments"
+                            class="p-3"
+                            v-for="comment in post.comments"
+                            :key="comment"
+                        >
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <!-- :src="comment.user.file" -->
                                     <img
                                         class="rounded-full w-[38px] h-[38px]"
-                                        src="https://picsum.photos/id/50/200/300"
+                                        :src="comment.user.file"
                                     >
-                                    <!-- {{ comment.user.name }} -->
                                     <div class="ml-4 font-extrabold text-[15px]">
-                                        COMMENT USER NAME
-                                        <!-- {{ post.created_at }} -->
-                                        <span class="font-light text-gray-700 text-sm">POST DATE</span>
+                                        {{ comment.user.name }}
+                                        <span class="font-light text-gray-700 text-sm">{{ post.created_at }}</span>
                                     </div>
                                 </div>
-                                <!-- v-if="user.id === comment.user.id" @click="deleteType = 'Comment'; id = comment.id" -->
+
                                 <DotsHorizontal
-
+                                    v-if="user.id === comment.user.id"
                                     class="cursor-pointer"
-
+                                    @click="deleteType = 'Comment'; id = comment.id"
                                     :size="27"
                                 />
                             </div>
-                            <!-- {{ comment.text }} -->
+
                             <div class="text-[13px] pl-[55px]">
-                                COMMENT TEXT
+                                {{ comment.text }}
                             </div>
                         </div>
 
                         <div class="pb-16 md:hidden"></div>
                     </div>
-                    <!-- v-if="post" :post="post" @like="$emit('updateLike', $event)" -->
+
                     <LikesSection
-
+                        v-if="post"
                         class="px-2 border-t mb-2"
-
-
+                        :post="post"
+                        @like="$emit('updateLike', $event)"
                     />
 
                     <div class="absolute flex border bottom-0 w-full max-h-[200px] bg-white overflow-auto">
@@ -147,14 +139,13 @@ const textareaInput = (e) => {
                                 text-[18px]
                             "
                         ></textarea>
-                        <!-- @click="
-                                $emit('addComment', { post, user, comment });
-                                comment = ''
-                            " -->
                         <button
                             v-if="comment"
                             class="text-blue-600 font-extrabold pr-4"
-
+                            @click="
+                                $emit('addComment', { post, user, comment });
+                                comment = ''
+                            "
                         >
                             Post
                         </button>

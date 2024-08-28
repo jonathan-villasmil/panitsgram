@@ -12,7 +12,7 @@ import AccountOutline from 'vue-material-design-icons/AccountOutline.vue';
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
 import AccountPlusOutline from 'vue-material-design-icons/AccountPlusOutline.vue';
 
-import MenuItem from '@/Components/MenuItem.vue';
+import MenuItem from '@/Components/MenuItem.vue'
 import CreatePostOverlay from '@/Components/CreatePostOverlay.vue'
 
 let showCreatePost = ref(false)
@@ -22,7 +22,6 @@ let showCreatePost = ref(false)
     <div id="MainLayout" class="w-full h-screen">
         <div v-if="$page.url === '/'" id="TopNavHome" class="fixed z-30 md:hidden block w-full bg-white h-[61px] border-b border-b-gray-300">
             <div class="flex items-center justify-between h-full">
-
                 <Link href="/">
                     <img class="w-[105px] ml-6 cursor-pointer" src="/insta-logo.png">
                 </Link>
@@ -57,8 +56,7 @@ let showCreatePost = ref(false)
             <Link href="/" class="px-4">
                 <ChevronLeft :size="30" class="cursor-pointer"/>
             </Link>
-            <!-- {{ $page.props.auth.user.name }} -->
-            <div class="font-extrabold text-lg">NAME HERE</div>
+            <div class="font-extrabold text-lg">{{ $page.props.auth.user.name }}</div>
             <AccountPlusOutline :size="30" class="cursor-pointer px-4"/>
         </div>
 
@@ -77,18 +75,15 @@ let showCreatePost = ref(false)
                 <MenuItem iconString="Explore" class="mb-4"/>
                 <MenuItem iconString="Messages" class="mb-4"/>
                 <MenuItem iconString="Notifications" class="mb-4"/>
-                <MenuItem @click="$event => showCreatePost = true" iconString="Create" class="mb-4"/>
-                <!-- :href="route('users.show', { id: $page.props.auth.user.id })" -->
-                <Link href="/">
+                <MenuItem @click="showCreatePost = true" iconString="Create" class="mb-4"/>
+                <Link :href="route('users.show', { id: $page.props.auth.user.id })">
                     <MenuItem iconString="Profile" class="mb-4"/>
                 </Link>
             </div>
 
-            <!-- :href="route('logout')" -->
-            <Link href="/" as="button" method="post" class="absolute bottom-0 px-3 w-full">
+            <Link :href="route('logout')" as="button" method="post" class="absolute bottom-0 px-3 w-full">
                 <MenuItem iconString="Log out" class="mb-4"/>
             </Link>
-
         </div>
 
         <div class="flex lg:justify-between bg-white h-full w-[100%-280px] xl:pl-[280px] lg:pl-[100px] overflow-auto">
@@ -102,16 +97,12 @@ let showCreatePost = ref(false)
             </div>
 
             <div v-if="$page.url === '/'" id="SuggestionsSection" class="lg:w-4/12 lg:block hidden text-black mt-10">
-                <!-- :href="route('users.show', { id: $page.props.auth.user.id })" -->
-                <Link href="/" class="flex items-center justify-between max-w-[300px]">
+                <Link :href="route('users.show', { id: $page.props.auth.user.id })" class="flex items-center justify-between max-w-[300px]">
                     <div class="flex items-center">
-                        <!-- :src="$page.props.auth.user.file" -->
-                        <img class="rounded-full z-10 w-[58px] h-[58px]"  src="https://picsum.photos/id/50/200/300">
+                        <img class="rounded-full z-10 w-[58px] h-[58px]" :src="$page.props.auth.user.file">
                         <div class="pl-4">
-                            <!-- {{ $page.props.auth.user.name }} -->
-                            <div class="text-black font-extrabold">USER NAME</div>
-                            <!-- {{ $page.props.auth.user.name }} -->
-                            <div class="text-gray-500 text-extrabold text-sm">NAME HERE</div>
+                            <div class="text-black font-extrabold">{{ $page.props.auth.user.name }}</div>
+                            <div class="text-gray-500 text-extrabold text-sm">{{ $page.props.auth.user.name }}</div>
                         </div>
                     </div>
                     <button class="text-blue-500 hover:text-gray-900 text-xs font-extrabold">
@@ -125,16 +116,13 @@ let showCreatePost = ref(false)
                         See All
                     </button>
                 </div>
-                <!-- v-for="randUser in $page.props.randomUsers" :key="randUser" -->
-                <div >
-                    <!-- :href="route('users.show', { id: randUser.id })" -->
-                    <Link href="/" class="flex items-center justify-between max-w-[300px] pb-2">
+
+                <div v-for="randUser in $page.props.randomUsers" :key="randUser">
+                    <Link :href="route('users.show', { id: randUser.id })" class="flex items-center justify-between max-w-[300px] pb-2">
                         <div class="flex items-center">
-                            <!-- :src="randUser.file" -->
-                            <img class="rounded-full z-10 w-[37px] h-[37px]" src="https://picsum.photos/id/50/200/300">
+                            <img class="rounded-full z-10 w-[37px] h-[37px]" :src="randUser.file">
                             <div class="pl-4">
-                                <!-- {{ randUser.name }} -->
-                                <div class="text-black font-extrabold">RANDUSER NAME</div>
+                                <div class="text-black font-extrabold">{{ randUser.name }}</div>
                                 <div class="text-gray-500 text-extrabold text-sm">Suggested for you</div>
                             </div>
                         </div>
@@ -157,18 +145,16 @@ let showCreatePost = ref(false)
             </Link>
             <Compass fillColor="#000000" :size="33" class="cursor-pointer" />
             <SendOutline fillColor="#000000" :size="33" class="cursor-pointer" />
-            <Plus @click="$event => showCreatePost = true" fillColor="#000000" :size="33" class="cursor-pointer" />
+            <Plus @click="showCreatePost = true" fillColor="#000000" :size="33" class="cursor-pointer" />
             <AccountOutline fillColor="#000000" :size="33" class="cursor-pointer" />
-            <!--  :href="route('users.show', { id: $page.props.auth.user.id })" -->
-            <Link href="/">
-                <!-- :src="$page.props.auth.user.file" -->
+            <Link :href="route('users.show', { id: $page.props.auth.user.id })">
                 <img
                     class="rounded-full w-[30px] cursor-pointer"
-                    src="https://picsum.photos/id/50/200/300"
-
+                    :src="$page.props.auth.user.file"
                 >
             </Link>
         </div>
     </div>
-    <CreatePostOverlay v-if="showCreatePost" @close="$event => showCreatePost = false" />
+
+    <CreatePostOverlay v-if="showCreatePost" @close="showCreatePost = false" />
 </template>
